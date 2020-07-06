@@ -1,0 +1,295 @@
+﻿@{
+    Layout = null;
+}
+@Scripts.Render("~/Content/Bootstrap/js")
+@Scripts.Render("~/bundles/jquery")
+<!------ Include the above in your HEAD tag ---------->
+
+@*<!DOCTYPE html>
+<html>
+<head>
+	<title>Login Page</title>*@
+    @Styles.Render("~/Content/Bootstrap/css")
+	@Styles.Render("~/Content/FontAweSome/css")
+    <link rel="stylesheet" href="@Url.Content("~/Content/AnotherCss/Login.css")" />
+	
+	<!--Custom styles-->
+	<link rel="stylesheet" type="text/css" href="styles.css">
+@*</head>
+<body>*@
+<style>
+    p
+    {
+        color:white;
+    }
+
+</style>
+<div class="container">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+            <div class="card-header">
+				<h3>Sign In</h3>
+				<div class="d-flex justify-content-end social_icon">
+					<span><i class="fa fa-facebook-square"></i></span>
+					<span><i class="fa fa-google-plus-square"></i></span>
+					<span><i class="fa fa-twitter-square"></i></span>
+				</div>
+			</div>
+			<div class="card-body">
+                @Html.Partial("_ViewLogin")
+			</div>
+			<div class="card-footer">
+				<div class="d-flex justify-content-center links">
+					Don't have an account?<a href="javascript:void(0)" onClick="CallRegisterView();">  Sign Up</a>
+				</div>
+				<div class="d-flex justify-content-center">
+					<a href="javascript:void(0)" onClick="CallResetView();">Forgot your password?</a>
+                    <!--LANGSUNG KE CONTROLLER-->
+                    @*<a href='@Url.Action("ForgetPassword", "Login")' onclick='navigate(this.href);'>Forgot your password?</a>*@
+				</div>
+			</div>
+		</div>
+	</div>
+</div>@*
+@*</body>
+</html>*@
+
+<script type="text/javascript">
+	$(document).ready(function () {
+	   
+	});
+
+	$("#btnLogin").click(function () {
+	    $("#divusername").empty();
+	    $("#divpassword").empty();
+	    if ($("#txtusername").val() == "") {
+	        $("<p>isikan username</p>").appendTo($("#divusername"));
+	        
+	    } else if ($("#txtpassword").val() == "") {
+	        $("<p>isikan password</p>").appendTo($("#divpassword"));
+	    }
+	    else { Callajaxlogin(); }
+	});
+
+	function Callajaxlogin() {
+	    var params = new Object();
+	    params.EmailId = $("#txtusername").val(),
+	    params.Password = $("#txtpassword").val()
+	    $.ajax({
+	        type: "POST",
+	        url: "@Url.Content("~/Login/Login")",
+	        contentType: 'application/json',
+	        dataType: 'json',
+	        traditional: true,
+	        data: JSON.stringify(params),
+	        success: function (returnResult) {
+	            if (returnResult.Result == "SUCCESS") {
+	                window.location = returnResult.RedirectURL;
+	            }
+	            else {
+	                $("#pesanerror").html(returnResult.ErrMesgs[0]);
+	            }
+	           
+	        },
+	        error: function (data) {
+	            //showErrorMesgGrowl('Login failed');
+	        }
+	    });
+	}
+
+    function CallResetView() {
+        //$(".card-body").html('Html.Partial("_ViewResetPassword").ToString()'
+        $(".card-body").html(
+                            '<form>' +
+                            '<p id="pesanerror"></p>'+
+                            '<div class="input-group form-group" >'+
+                            '	<div class="input-group-prepend">'+
+                            '		<span class="input-group-text"><i class="fa fa-user"></i></span>'+
+                            '	</div>'+
+                            '	<input type="text" class="form-control" placeholder="username" id="txtusername"/>'+
+                            '</div>'+
+                            '<div id="divusername"></div>'+
+                            '<div class="form-group">'+
+                            '	<button id="btnReset" type="button" value="Login" class="btn float-right login_btn">Reset Password</button>' +
+                            //'   <input id="test" type="button" value="aa" />'+
+                            '</div>' +
+                            '</form>');
+
+        $(".card-footer").html('<div class="d-flex justify-content-center links">'+
+					             'Dont have an account?<a href="javascript:void(0)" onClick="CallRegister();">Sign Up</a>' +
+                                '</div>'+
+				                '<div class="d-flex justify-content-center">'+
+				                	'<a href="javascript:void(0)" onClick="LoginBack();">Login</a>'+
+				                '</div>');
+
+    }
+
+    function CallRegisterView() {
+        $(".card-body").html('<form id="myform">'
+	                           + '<div class="input-group form-group" >'
+	                           + '	<div class="input-group-prepend">'
+	                           + '		<span class="input-group-text"><i class="fa fa-user"></i></span>'
+	                           + '	</div>'
+	                           + '	<input type="text" class="form-control" placeholder="firstname" id="txtfirstname"/>'
+	                           + '</div>'
+                               //+ '<div id="divfirstname"></div>' +
+                               + '<div class="input-group form-group" >'
+	                           + '	<div class="input-group-prepend">'
+	                           + '		<span class="input-group-text"><i class="fa fa-user"></i></span>'
+	                           + '	</div>'
+	                           + '	<input type="text" class="form-control" placeholder="lastname" id="txtlastname"/>'
+	                           + '</div>'
+                               //+ '<div id="divlastname"></div>' +
+                               + '<div class="input-group form-group" >'
+	                           + '	<div class="input-group-prepend">'
+	                           + '		<span class="input-group-text"><i class="fa fa-user"></i></span>'
+	                           + '	</div>'
+	                           + '	<input type="text" class="form-control" placeholder="email" id="txtemail" class="required email"/>'
+	                           + '</div>'
+                               //+ '<div id="divemail"></div>' +
+                               + '<div class="input-group form-group" >'
+	                           + '	<div class="input-group-prepend">'
+	                           + '		<span class="input-group-text"><i class="fa fa-key"></i></span>'
+	                           + '	</div>'
+	                           + '	<input type="password" class="form-control" placeholder="password" id="txtcreatepassword"/>'
+	                           + '</div>'
+                               //+ '<div id="divcreatepassword"></div>' +
+                               + '<div class="input-group form-group" >'
+	                           + '	<div class="input-group-prepend">'
+	                           + '		<span class="input-group-text"><i class="fa fa-key"></i></span>'
+	                           + '	</div>'
+	                           + '	<input type="password" class="form-control" placeholder="confirm password" id="txtconfirmpassword"/>'
+	                           + '</div>'
+                               + '<div id="divregistererror"></div>'
+                               + '<div class="form-group">'
+		                       + '<button id="btnRegister" type="button" value="Register" class="btn float-right login_btn">Register</button>'
+	                           + '</div>'
+                              + '</form>');
+
+        // $(".card").css({ "height": $(".card-body").height() + ($(".card").height() - $(".card-footer").height() - $(".card-header").height()) });
+
+        $(".card-footer").html('<div class="d-flex justify-content-center links">' +
+                                'Do have an account?<a href="javascript:void(0)" onClick="LoginBack();">Login</a>' +
+                               '</div>'); //+
+                               //'<div class="d-flex justify-content-center">' +
+                               //    '<a href="javascript:void(0)" onClick="CallResetView();">Forgot your password?</a>' +
+                               //'</div>');
+
+        $(".card").css({ "height": $(".card").height() + ($(".card-body").height() / 2) });
+    }
+
+    function LoginBack() {
+        window.location = 'login';
+    }
+
+    $(".card-body").on('click', "#btnReset", function () {
+        $("#divusername").empty();
+        if ($("#txtusername").val() == "") {
+            $("<p>isikan username</p>").appendTo($("#divusername"));
+        }
+        else { CallResetPassword(); }
+    });
+
+    $(".card-body").on('click', "#btnRegister", function () {
+        $("#divregistererror").empty();
+        if ($("#txtfirstname").val() == "") {
+            $("<p>isikan firstname</p>").appendTo($("#divregistererror"));
+        }
+        else if ($("#txtlastname").val() == "") {
+            $("<p>isikan lastname</p>").appendTo($("#divregistererror"));
+        }
+        else if ($("#txtemail").val() == "") {
+            $("<p>isikan email</p>").appendTo($("#divregistererror"));
+        }
+        else if ($("#txtcreatepassword").val() == "") {
+            $("<p>isikan password</p>").appendTo($("#divregistererror"));
+        }
+        else if ($("#txtconfirmpassword").val() == "") {
+            $("<p>isikan confirm password</p>").appendTo($("#divregistererror"));
+        }
+        else if ($("#txtcreatepassword").val() != $("#txtconfirmpassword").val()) {
+            $("<p>Password dan confirm password tidak sama</p>").appendTo($("#divregistererror"));
+        }
+        else {
+            CallRegister();
+            alert("a");
+        }
+    });
+
+    //$(".card-body").on('click', "#test", function () {
+    //    alert($(this).val());
+    //});
+
+    function CallResetPassword() {
+        var params = new Object();
+        var data = new Object();
+       
+        //alert($("#txtusername").val());
+        data.Email = $("#txtusername").val();
+        params.data = data;
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Content("~/Login/ForgetPassword")",
+	        contentType: 'application/json',
+	        dataType: 'json',
+	        traditional: true,
+	        data: JSON.stringify(params),
+	        success: function (returnResult) {
+	            if (returnResult.Result == "SUCCESS") {
+	                $("<p>Harap Cek Inbox Email</p>").appendTo($("#divusername"));
+	                //window.location = returnResult.RedirectURL;
+	            }
+	            else {
+	                $("#pesanerror").html("");
+	            }
+
+	        },
+	        error: function (data) {
+	            //showErrorMesgGrowl('Login failed');
+	        }
+        });
+    }
+
+    function CallRegister() {
+        var params = new Object();
+        var data = new Object();
+
+        //alert($("#txtusername").val());
+        data.FirstName = $("#txtfirstname").val();
+        data.LastName = $("#txtlastname").val();
+        data.Email = $("#txtemail").val();
+        data.Password = $("#txtcreatepassword").val();
+        params.data = data;
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Content("~/Login/Register")",
+                contentType: 'application/json',
+                dataType: 'json',
+                traditional: true,
+                data: JSON.stringify(params),
+                success: function (returnResult) {
+                    if (returnResult.Result == "SUCCESS") {
+                        $("<p>Please Check the Email Inbox for the Email Verification Process</p>").appendTo($("#divregistererror"));
+                        //window.location = returnResult.RedirectURL;
+                    }
+                    else {
+                        $("<p>" + returnResult.ErrMesgs[0] + "</p>").appendTo($("#divregistererror"));
+                    }
+
+                },
+                error: function (data) {
+                    //showErrorMesgGrowl('Login failed');
+                }
+        });
+     }
+</script>
+
+@*Copyright © 2020 Agung Anggara. All rights reserved.
+Purpose: To search all columns of all tables for a given search string
+Written by: Agung Anggara
+Site: https://www.agungpanduan.com
+Updated and tested by Tim Gaunt
+https://medium.com/@agungpanduan/asp-net-create-login-form-using-sql-command-7a59297edb3e
+Tested on: SQL Server 2012 & 2016, Visual Studio 2010*@

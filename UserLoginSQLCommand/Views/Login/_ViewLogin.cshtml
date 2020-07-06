@@ -1,0 +1,34 @@
+﻿<form>
+    @* @Html.ValidationSummary(true, "", new { @class = "text-danger" })  *@
+    <p id="pesanerror"></p>
+	<div class="input-group form-group" >
+		<div class="input-group-prepend">
+			<span class="input-group-text"><i class="fa fa-user"></i></span>
+		</div>
+		<input type="text" class="form-control" placeholder="username" id="txtusername"/>
+		 @*<p id="pesanerroruser"></p>*@
+	</div>
+    <div id="divusername"></div>
+	<div class="input-group form-group" >
+		<div class="input-group-prepend">
+			<span class="input-group-text"><i class="fa fa-key"></i></span>
+		</div>
+		<input type="password" class="form-control" placeholder="password" id="txtpassword"/>
+        <p id="pesanerrorpass"></p>
+	</div>
+    <div id="divpassword"></div>
+	<div class="row align-items-center remember">
+		<input type="checkbox">Remember Me
+	</div>
+	<div class="form-group">
+		<button id="btnLogin" type="button" value="Login" class="btn float-right login_btn">Login</button>
+	</div>
+</form>
+
+@*Copyright © 2020 Agung Anggara. All rights reserved.
+Purpose: To search all columns of all tables for a given search string
+Written by: Agung Anggara
+Site: https://www.agungpanduan.com
+Updated and tested by Tim Gaunt
+https://medium.com/@agungpanduan/asp-net-create-login-form-using-sql-command-7a59297edb3e
+Tested on: SQL Server 2012 & 2016, Visual Studio 2010*@

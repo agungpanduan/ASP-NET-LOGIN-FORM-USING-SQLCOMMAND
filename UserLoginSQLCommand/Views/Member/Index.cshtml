@@ -1,0 +1,196 @@
+﻿@using System;
+
+<style>
+    .text-large {
+      text-transform: uppercase;
+    	background: linear-gradient(to right, #30CFD0 0%, #330867 100%);
+    	-webkit-background-clip: text;
+    	-webkit-text-fill-color: transparent;
+    	font-size: 500%;
+      font-family: 'Poppins', sans-serif;
+    }
+    .row.no-gutter {
+        margin-left: 0px;
+        margin-right: 0;
+        margin-top: 0;
+        margin-bottom:0;
+        width:100%;
+    }
+    .row.no-gutter [class*='col-']:not(:first-child),
+    .row.no-gutter [class*='col-']:not(:last-child) {
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-top: 10px;
+        padding-bottom:10px;
+     }
+    input[name='need']:disabled {
+        background: red !important;
+        color:black !important;
+    }
+   
+</style>
+
+<div class="container">
+     <div class="row no-gutter">
+       <div class="col-md-6" style="padding-top:13px;">
+           <div class="row no-gutter"><i class="fa fa-user col-md-3">
+                <label for="inputEmail" class="col-md-4 col-form-label text-success" >Name</label></i>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" id="inputName">
+                </div>
+           </div>
+           <div class="row no-gutter"><i class="fa fa-venus-mars col-md-3">
+              <label for="cmbGender" class="col-md-4 col-form-label text-success">Gender</label></i>
+              <div class="col-md-8">
+                 <select class="form-control"  id="cmbGender">
+                    <option selected="selected" value="">--Please Choose--</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                 </select>
+              </div>
+           </div>
+       </div>
+       <div class="col-md-6">
+          <p class="float-right text-large"><span id="furnace_no">CLASS 1   </span></p>
+       </div>
+   </div>
+   <div class="row" >
+        <div class="bg-primary text-white text-center col-md-12">
+		 <h4>Type 1</h4>
+		</div>
+    </div>
+   <div class="row no-gutter">
+      <div class="container">
+          <table class="table">
+            <thead>
+              <tr class="table-primary">
+                <th class="text-center grid-checkbox-col" rowspan="2">
+                    <input class="grid-checkbox" type="checkbox" id="checkall" />
+                </th>
+                <th rowspan="1">Name</th>
+                <th rowspan="1">Gender</th>
+                <th rowspan="1">Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center grid-checkbox-col">
+                    <input name="chkRow" type="checkbox" class="grid-checkbox grid-checkbox-body" 
+                        data-ClassId=""  value="Male"/>
+                </td>
+                <td>Agung Panduan</td>
+                <td>Male</td>
+                <td>admincool@agungpanduan.com</td>
+              </tr>      
+              <tr class="table-success">
+                <td class="text-center grid-checkbox-col">
+                   <input name="chkRow" type="checkbox" class="grid-checkbox grid-checkbox-body" 
+                          data-ClassId=""  value="Male"/>
+                </td>
+                <td>Joe</td>
+                <td>Male</td>
+                <td>adminjoe@e-pandu.com</td>
+              </tr>
+              <tr>
+                <td class="text-center grid-checkbox-col">
+                    <input name="chkRow" type="checkbox" class="grid-checkbox grid-checkbox-body" 
+                          data-ClassId=""  value="Female"/>
+                </td>
+                <td>Sinta</td>
+                <td>Female</td>
+                <td>john@example.com</td>
+              </tr>
+              <tr class="table-success">
+                <td class="text-center grid-checkbox-col">
+                   <input name="chkRow" type="checkbox" class="grid-checkbox grid-checkbox-body" 
+                          data-ClassId=""  value="Female"/>
+                </td>
+                <td>Mary</td>
+                <td>Female</td>
+                <td>mary@example.com</td>
+              </tr>
+              <tr>
+                <td class="text-center grid-checkbox-col">
+                    <input name="chkRow" type="checkbox" class="grid-checkbox grid-checkbox-body" 
+                          data-ClassId="" value="Male"/>
+                </td>
+                <td>Dooley</td>
+                <td>Male</td>
+                <td>july@example.com</td>
+              </tr>
+              <tr class="table-success">
+                <td class="text-center grid-checkbox-col">
+                   <input name="chkRow" type="checkbox" class="grid-checkbox grid-checkbox-body" 
+                          data-ClassId=""  value="Female"/>
+                </td>
+                <td>Lisa</td>
+                <td>Female</td>
+                <td>bo@example.com</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+   </div>    
+   <div class="row no-gutter">
+       <div class="col-md-12">
+           <div class="text-right">
+               <button id="btnSave" type="button" class="btn btn-sm btn-success">Save</button>
+               <button id="btnSkip" type="button" class="btn btn-sm btn-primary">Skip</button>
+           </div>
+       </div>
+   </div>
+    <br />
+</div>
+@*@section footer{
+   <div class="bg-secondary" style="height:100%">
+       <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-12 text-white">
+                    <div class="row p-3">
+                        <div class="col-md-6 col-12">
+                            <p class="m-0">All Right Reserved 2020 - <a href="http://www.agungpanduan.com" target="_blank">agungpandun.com</a></p>
+                        </div>
+                        <!--<div class="col-md-6 col-12 footer-icon text-right">
+                            <i class="fa fa-twitter"></i>
+                            <i class="fa fa-instagram"></i>
+                            <i class="fa fa-pinterest"></i>
+                            <i class="fa fa-linkedin"></i>
+                            <i class="fa fa-youtube"></i>
+                            <i class="fa fa-vimeo"></i>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   </div>
+}*@
+ 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#checkall").click(function () {
+            $(".grid-checkbox").prop("checked", $("#checkall").is(":checked"));
+        });
+
+        $(".grid-checkbox").click(function () {
+            $("#checkall").prop("checked", $('.grid-checkbox:not(#checkall)').not(':checked').length == 0);
+        });
+    });
+</script>
+
+@if (Request.IsAuthenticated)  
+{   
+    <a href='@Url.Action("LogOut", "Login")' onclick='navigate(this.href);'>  
+        <input style="float: right;" type="button" value='Logout' />  
+    </a>  
+}  
+
+@*Copyright © 2020 Agung Anggara. All rights reserved.
+Purpose: To search all columns of all tables for a given search string
+Written by: Agung Anggara
+Site: https://www.agungpanduan.com
+Updated and tested by Tim Gaunt
+https://medium.com/@agungpanduan/asp-net-create-login-form-using-sql-command-7a59297edb3e
+Tested on: SQL Server 2012 & 2016, Visual Studio 2010*@
